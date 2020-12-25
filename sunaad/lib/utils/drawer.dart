@@ -41,7 +41,7 @@ class _MyDrawerState extends State<MyDrawer> {
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(18.0, 0.0, 16.0, 16.0),
-                child: Text("abheriteam@gmail.com",
+                child: Text("theteamabheri@gmail.com",
                     style: TextStyle(
                         fontSize: 14,
                         //fontWeight: FontWeight.bold,

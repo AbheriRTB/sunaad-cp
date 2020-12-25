@@ -4,6 +4,7 @@ import 'package:sunaad/utils/drawer.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:sunaad/models/programs.dart';
 import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 
 class BannerPage extends StatefulWidget {
   @override
@@ -51,7 +52,13 @@ class _BannerPageState extends State<BannerPage> {
               Icons.more_vert,
               color: Colors.white,
             ),
-            onPressed: () {},
+            onPressed: () async {
+              var whatsappUrl = "whatsapp://send?phone=919845544209";
+              await canLaunch(whatsappUrl)
+                  ? launch(whatsappUrl)
+                  : print(
+                      "open whatsapp app link or do a snackbar with notification that there is no whatsapp installed");
+            },
           )
         ],
         centerTitle: false,
@@ -62,13 +69,14 @@ class _BannerPageState extends State<BannerPage> {
       ),
       body: Center(
         child: FutureBuilder<List<Programs>>(
-          future: JasonData().fetchPrograms(http.Client()),
+          future: JasonData().parsePhotosFromSPData(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               loading = false;
               for (int i = 0; i < snapshot.data.length; ++i) {
                 String url = snapshot.data[i].splash_url;
                 url = url.replaceAll('.html', '.jpg');
+                url = url.replaceAll('flyer_', '');
                 print('Url: ' + url);
                 if (snapshot.data[i].is_featured == 'Yes') {
                   bannerSet.add(imageUrl + url);
@@ -104,17 +112,16 @@ class _BannerPageState extends State<BannerPage> {
                     items: banners.map((imgUrl) {
                       return Builder(
                         builder: (BuildContext context) {
-                          return Container(
-                            width: MediaQuery.of(context).size.width,
-                            //margin: EdgeInsets.symmetric(horizontal: 2.0),
-                            decoration: BoxDecoration(
-                              color: Colors.transparent,
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(16.0),
+                          return ClipRRect(
+                            borderRadius: BorderRadius.circular(16.0),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                color: Colors.deepOrange[50],
+                              ),
                               child: Image.network(
                                 imgUrl,
-                                fit: BoxFit.fill,
+                                //fit: BoxFit.fill,
                               ),
                             ),
                           );

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sunaad/data/jason_data.dart';
 import 'package:sunaad/pages/banner.dart';
+import 'package:http/http.dart' as http;
 
 class SplashPage extends StatefulWidget {
   @override
@@ -10,10 +13,12 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
-    void splash() async => await Future.delayed(Duration(seconds: 2), () {
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => BannerPage()));
-        });
+    void splash() async {
+      await (JasonData().fetchPrograms(http.Client()));
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => BannerPage()));
+    }
+
     splash();
     return Container(
       color: Theme.of(context).primaryColor,

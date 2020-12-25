@@ -196,6 +196,30 @@ class _InfoPageState extends State<InfoPage> {
               textAlign: TextAlign.center,
             ),
           ),
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
+            child: Text(
+              'Venue: ${widget.programInfo.venue_name}',
+              style: TextStyle(
+                color: Colors.grey[600],
+                fontSize: 18,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+            child: Text(
+              'Organizer: ${widget.programInfo.organizer_name}',
+              style: TextStyle(
+                color: Colors.grey[600],
+                fontSize: 18,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
           SizedBox(height: 16.0),
           FlatButton(
             shape: RoundedRectangleBorder(
@@ -205,7 +229,7 @@ class _InfoPageState extends State<InfoPage> {
               _launchURL(url.trim());
             },
             child: Text(
-              'ATTEND',
+              'ENTER',
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,

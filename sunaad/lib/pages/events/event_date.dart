@@ -95,7 +95,7 @@ class _EventDatePageState extends State<EventDatePage> {
         actions: [
           IconButton(
             icon: Icon(
-              Icons.settings,
+              Icons.brush,
               color: Colors.white,
             ),
             onPressed: () {
@@ -110,7 +110,7 @@ class _EventDatePageState extends State<EventDatePage> {
       ),
       body: Container(
         child: FutureBuilder<List<Programs>>(
-          future: JasonData().fetchPrograms(http.Client()),
+          future: JasonData().parsePhotosFromSPData(),
           builder: (context, snapshot) {
             if (snapshot.hasError) print(snapshot.error);
             return snapshot.hasData

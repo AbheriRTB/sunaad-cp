@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sunaad/models/programs.dart';
@@ -9,6 +11,14 @@ import 'package:http/http.dart' as http;
 class JasonData {
   Future<List<Programs>> fetchPrograms(http.Client client) async {
     return fetchPrograms2(client);
+  }
+
+  List<Programs> parsePhotosWithoutAsync(String responce) {
+    return parsePhotosWithoutAsync2(responce);
+  }
+
+  Future<List<Programs>> parsePhotosFromSPData() async {
+    return parsePhotosFromSPData2();
   }
 }
 
@@ -27,6 +37,36 @@ Future<List<Programs>> fetchPrograms2(http.Client client) async {
 // A function that converts a response body into a List<Photo>.
 Future<List<Programs>> parsePhotos(String responseBody) async {
   final parsed = await jsonDecode(responseBody).cast<Map<String, dynamic>>();
+
+  List<Programs> plist, newList;
+
+  plist = parsed.map<Programs>((json) => Programs.fromJson(json)).toList();
+  newList = processExpiredItems(plist);
+  return newList;
+}
+
+// A function that converts a response body into a List<Photo>.
+Future<List<Programs>> parsePhotosFromSPData2() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  var respBody = prefs.getString("progsData");
+  List<Programs> plist, newList;
+  try {
+    final result = await InternetAddress.lookup('google.com');
+    if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+      print('connected');
+    }
+  } on SocketException catch (_) {
+    print('not connected');
+  }
+  final parsed = jsonDecode(respBody).cast<Map<String, dynamic>>();
+  plist = parsed.map<Programs>((json) => Programs.fromJson(json)).toList();
+  newList = processExpiredItems(plist);
+
+  return newList;
+}
+
+List<Programs> parsePhotosWithoutAsync2(String responseBody) {
+  final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
 
   List<Programs> plist, newList;
 
