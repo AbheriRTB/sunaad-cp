@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sunaad/pages/Dictionary/dictionary_artiste.dart';
-import 'package:sunaad/pages/Dictionary/dictionary_organizer.dart';
-import 'package:sunaad/pages/Dictionary/dictionary_venue.dart';
+import 'package:sunaad/pages/dictionary/dictionary_artiste.dart';
+import 'package:sunaad/pages/dictionary/dictionary_organizer.dart';
+import 'package:sunaad/pages/dictionary/dictionary_venue.dart';
 import 'package:sunaad/pages/banner.dart';
 import 'package:sunaad/pages/events/event_city.dart';
 import 'package:sunaad/pages/events/event_date.dart';
