@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sunaad/data/urls.dart';
+import 'package:sunaad/models/artiste.dart';
 import 'package:sunaad/models/programs.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -12,28 +14,35 @@ class JasonData {
   }
 
   List<Programs> parsePhotosWithoutAsync(String responce) {
-    return parsePhotosWithoutAsync2(responce);
+    return parseProgramsSync2(responce);
   }
 
   Future<List<Programs>> parsePhotosFromSPData() async {
-    return parsePhotosFromSPData2();
+    return parseProgramsFromSPData2();
+  }
+
+  Future<List<Artiste>> fetchDir(http.Client client) async {
+    return fetchDir2(client);
+  }
+
+  Future<List<Artiste>> parseArtisteFromSPData() async {
+    return parseArtisteFromSPData2();
   }
 }
 
 Future<List<Programs>> fetchPrograms2(http.Client client) async {
-  final response =
-      await client.get('https://sunaad-services-njs.herokuapp.com/getPrograms');
+  final response = await client.get(Urls().program());
 
   // Use the compute function to run parsePhotos in a separate isolate.
   SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.getString('progsData');
   prefs.setString('progsData', response.body);
 
-  return compute(parsePhotos, response.body);
+  return compute(parsePrograms, response.body);
 }
 
 // A function that converts a response body into a List<Photo>.
-Future<List<Programs>> parsePhotos(String responseBody) async {
+Future<List<Programs>> parsePrograms(String responseBody) async {
   final parsed = await jsonDecode(responseBody).cast<Map<String, dynamic>>();
 
   List<Programs> plist, newList;
@@ -44,7 +53,7 @@ Future<List<Programs>> parsePhotos(String responseBody) async {
 }
 
 // A function that converts a response body into a List<Photo>.
-Future<List<Programs>> parsePhotosFromSPData2() async {
+Future<List<Programs>> parseProgramsFromSPData2() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   var respBody = prefs.getString("progsData");
   List<Programs> plist, newList;
@@ -55,7 +64,7 @@ Future<List<Programs>> parsePhotosFromSPData2() async {
   return newList;
 }
 
-List<Programs> parsePhotosWithoutAsync2(String responseBody) {
+List<Programs> parseProgramsSync2(String responseBody) {
   final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
 
   List<Programs> plist, newList;
@@ -79,4 +88,60 @@ List<Programs> processExpiredItems(List<Programs> plist) {
   }
   return newList;
   //print("Length after:" + plist.length.toString());
+}
+
+List<Artiste> processPublishedItems(List<Artiste> plist) {
+  var experyDate = DateTime(
+      DateTime.now().year, DateTime.now().month, DateTime.now().day - 3);
+
+  List<Artiste> newList = List<Artiste>();
+
+  for (var i = 0; i < plist.length; ++i) {
+    if (plist[i].artiste_instrument != 'No') {
+      newList.add(plist[i]);
+    }
+  }
+  return newList;
+  //print("Length after:" + plist.length.toString());
+}
+
+Future<List<Artiste>> fetchDir2(http.Client client) async {
+  final response = await client.get(Urls().artiste());
+
+  // Use the compute function to run parsePhotos in a separate isolate.
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.getString('artisteData');
+  prefs.setString('artisteData', response.body);
+
+  return compute(parseArtisteDir, response.body);
+}
+
+// A function that converts a response body into a List<Artiste>.
+Future<List<Artiste>> parseArtisteDir(String responseBody) async {
+  final parsed = await jsonDecode(responseBody).cast<Map<String, dynamic>>();
+
+  List<Artiste> plist, newList;
+  plist = parsed.map<Artiste>((json) => Artiste.fromJson(json)).toList();
+  newList = processPublishedItems(plist);
+  return newList;
+}
+
+List<Artiste> parseArtisteSync2(String responseBody) {
+  final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
+
+  List<Artiste> plist, newList;
+  plist = parsed.map<Artiste>((json) => Artiste.fromJson(json)).toList();
+  newList = processPublishedItems(plist);
+  return newList;
+}
+
+// A function that converts a response body into a List<Photo>.
+Future<List<Artiste>> parseArtisteFromSPData2() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  var respBody = prefs.getString("artisteData");
+  List<Artiste> plist, newList;
+  final parsed = jsonDecode(respBody).cast<Map<String, dynamic>>();
+  plist = parsed.map<Artiste>((json) => Artiste.fromJson(json)).toList();
+  newList = processPublishedItems(plist);
+  return newList;
 }

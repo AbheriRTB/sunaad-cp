@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
+import 'package:sunaad/data/urls.dart';
 import 'package:sunaad/models/programs.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class InfoPage extends StatefulWidget {
+class ProgInfoPage extends StatefulWidget {
   Programs programInfo;
-  InfoPage({
+  ProgInfoPage({
     this.programInfo,
   });
 
   @override
-  _InfoPageState createState() => _InfoPageState();
+  _ProgInfoPageState createState() => _ProgInfoPageState();
 }
 
-class _InfoPageState extends State<InfoPage> {
-  String imageUrl = 'https://abheri.pythonanywhere.com/static/images/';
+class _ProgInfoPageState extends State<ProgInfoPage> {
+  String imageUrl = Urls().image();
 
-  String defaultUrl =
-      'https://abheri.pythonanywhere.com/static/images/default2.jpg';
+  String defaultUrl = Urls().defaultArtisteImage();
   @override
   Widget build(BuildContext context) {
     String url = widget.programInfo.entry_fee;
@@ -32,8 +32,7 @@ class _InfoPageState extends State<InfoPage> {
     if (widget.programInfo.artiste_image.isNotEmpty) {
       defaultUrl = imageUrl + widget.programInfo.artiste_image;
     } else {
-      defaultUrl =
-          'https://abheri.pythonanywhere.com/static/images/default2.jpg';
+      defaultUrl = Urls().defaultArtisteImage();
     }
 
     var formatter = DateFormat('dd-MM-yyyy');

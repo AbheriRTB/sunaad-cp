@@ -15,6 +15,7 @@ class _SplashPageState extends State<SplashPage> {
   Widget build(BuildContext context) {
     void splash() async {
       await (JasonData().fetchPrograms(http.Client()));
+      await (JasonData().fetchDir(http.Client()));
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => BannerPage()));
     }

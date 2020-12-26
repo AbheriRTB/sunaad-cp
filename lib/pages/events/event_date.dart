@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:sunaad/data/jason_data.dart';
 import 'package:sunaad/data/data_utils.dart';
+import 'package:sunaad/data/urls.dart';
 import 'package:sunaad/utils/drawer.dart';
 import 'package:sunaad/utils/list_tile.dart';
 import 'package:http/http.dart' as http;
@@ -20,8 +21,7 @@ class EventDatePage extends StatefulWidget {
 }
 
 Future<List<Programs>> fetchPrograms(http.Client client) async {
-  final response =
-      await client.get('https://sunaad-services-njs.herokuapp.com/getPrograms');
+  final response = await client.get(Urls().program());
 
   // Use the compute function to run parsePhotos in a separate isolate.
 
@@ -73,9 +73,8 @@ class _EventDatePageState extends State<EventDatePage> {
         axis: Axis.horizontal);
   }
 
-  String imageUrl = 'https://abheri.pythonanywhere.com/static/images/';
-  String defaultUrl =
-      'https://abheri.pythonanywhere.com/static/images/default2.jpg';
+  String imageUrl = Urls().image();
+  String defaultUrl = Urls().defaultArtisteImage();
   bool isFinished = false;
   bool isToday = false;
   List<Programs> progs;

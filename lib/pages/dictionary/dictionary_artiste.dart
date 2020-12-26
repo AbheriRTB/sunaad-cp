@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sunaad/data/jason_data.dart';
+import 'package:sunaad/models/artiste.dart';
 import 'package:sunaad/utils/drawer.dart';
 import 'package:sunaad/utils/list_tile.dart';
 import 'package:sunaad/utils/menu.dart';
@@ -30,11 +32,22 @@ class _DictionaryArtistePageState extends State<DictionaryArtistePage> {
         pos: 7,
       ),
       body: Container(
-        child: ListView.builder(
-            itemCount: 10,
-            itemBuilder: (BuildContext context, int index) {
-              return DirList();
-            }),
+        child: FutureBuilder<List<Artiste>>(
+          future: JasonData().parseArtisteFromSPData(),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) print(snapshot.error);
+            if (snapshot.hasData) {
+              return ListView.builder(
+                itemCount: snapshot.data.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return DirList(
+                    artiste: snapshot.data[index],
+                  );
+                },
+              );
+            }
+          },
+        ),
       ),
     );
   }

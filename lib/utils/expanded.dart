@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sunaad/data/data_utils.dart';
 import 'package:sunaad/data/jason_data.dart';
+import 'package:sunaad/data/urls.dart';
 import 'package:sunaad/utils/list_tile.dart';
 import 'package:sunaad/models/orgs.dart';
 import 'package:sunaad/models/programs.dart';
@@ -20,10 +21,9 @@ class ExpandableListTile extends StatefulWidget {
 class _ExpandableListTileState extends State<ExpandableListTile> {
   List<Orgs> orgs;
 
-  String imageUrl = 'https://abheri.pythonanywhere.com/static/images/';
+  String imageUrl = Urls().image();
 
-  String defaultUrl =
-      'https://abheri.pythonanywhere.com/static/images/default2.jpg';
+  String defaultUrl = Urls().defaultArtisteImage();
 
   List<Programs> prgList = [];
 
@@ -70,8 +70,8 @@ class _ExpandableListTileState extends State<ExpandableListTile> {
                 if (orgs[index].artiste_image.isNotEmpty) {
                   defaultUrl = imageUrl + orgs[index].artiste_image;
                 } else {
-                  defaultUrl =
-                      'https://abheri.pythonanywhere.com/static/images/default2.jpg';
+                  defaultUrl = Urls().defaultArtisteImage();
+                  ;
                 }
 
                 return Column(

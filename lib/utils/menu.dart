@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sunaad/pages/info/about.dart';
-import 'package:sunaad/pages/info/feedback.dart';
 import 'package:sunaad/pages/info/theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 

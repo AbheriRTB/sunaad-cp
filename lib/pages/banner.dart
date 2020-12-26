@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sunaad/data/jason_data.dart';
+import 'package:sunaad/data/urls.dart';
 import 'package:sunaad/utils/drawer.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:sunaad/models/programs.dart';
@@ -13,7 +14,7 @@ class BannerPage extends StatefulWidget {
 class _BannerPageState extends State<BannerPage> {
   CarouselSlider carouselSlider;
   bool loading = true;
-  String imageUrl = 'https://abheri.pythonanywhere.com/static/images/';
+  String imageUrl = Urls().image();
   List imgList = [
     'https://images.unsplash.com/photo-1502117859338-fd9daa518a9a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
     'https://images.unsplash.com/photo-1554321586-92083ba0a115?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',

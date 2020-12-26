@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:sunaad/data/urls.dart';
+import 'package:sunaad/models/artiste.dart';
 import 'package:sunaad/models/programs.dart';
 import 'package:flutter/material.dart';
 import 'package:sunaad/models/programs.dart';
 import 'package:dart_date/dart_date.dart';
-import 'info.dart';
+import 'package:sunaad/utils/artiste_info.dart';
+import 'prog_info.dart';
 
 class DefaultList extends StatelessWidget {
   Programs progs;
-  String imageUrl = 'https://abheri.pythonanywhere.com/static/images/';
-  String defaultUrl =
-      'https://abheri.pythonanywhere.com/static/images/default2.jpg';
+  String imageUrl = Urls().image();
+  String defaultUrl = Urls().defaultArtisteImage();
   bool isFinished = false, isToday = false;
   int i;
 
@@ -34,8 +36,7 @@ class DefaultList extends StatelessWidget {
     if (progs.artiste_image.isNotEmpty) {
       defaultUrl = imageUrl + progs.artiste_image;
     } else {
-      defaultUrl =
-          'https://abheri.pythonanywhere.com/static/images/default2.jpg';
+      defaultUrl = Urls().defaultArtisteImage();
     }
 
     var formatter = DateFormat('dd-MM-yyyy');
@@ -108,7 +109,7 @@ class DefaultList extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => InfoPage(
+                          builder: (context) => ProgInfoPage(
                                 programInfo: progs,
                               )));
                 },
@@ -125,8 +126,17 @@ class DefaultList extends StatelessWidget {
 }
 
 class DirList extends StatelessWidget {
+  Artiste artiste;
+  String imageUrl = Urls().image();
+  String defaultUrl = Urls().defaultArtisteImage();
+  DirList({this.artiste});
   @override
   Widget build(BuildContext context) {
+    if (artiste.artiste_image.isNotEmpty) {
+      defaultUrl = imageUrl + artiste.artiste_image;
+    } else {
+      defaultUrl = Urls().defaultArtisteImage();
+    }
     TextStyle textStyle(double size) => TextStyle(
         fontSize: size,
         color: Colors.grey[600],
@@ -145,7 +155,7 @@ class DirList extends StatelessWidget {
                     CircleAvatar(
                       minRadius: 24,
                       backgroundColor: Colors.orangeAccent,
-                      //backgroundImage: NetworkImage('Hello'),
+                      backgroundImage: NetworkImage(defaultUrl),
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(12.0, 0.0, 15.0, 0.0),
@@ -155,7 +165,7 @@ class DirList extends StatelessWidget {
                           SizedBox(
                             width: (375.0 - 125),
                             child: Text(
-                              "Artist Name",
+                              artiste.artiste_name,
                               style: textStyle(18),
                               overflow: TextOverflow.ellipsis,
                               softWrap: true,
@@ -167,7 +177,7 @@ class DirList extends StatelessWidget {
                           SizedBox(
                             width: (375.0 - 125),
                             child: Text(
-                              'Description',
+                              'Specilization: ${artiste.artiste_instrument}',
                               style: textStyle(14),
                               softWrap: true,
                             ),
@@ -178,6 +188,14 @@ class DirList extends StatelessWidget {
                   ],
                 ),
               ),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ArtisteInfoPage(
+                              artisteInfo: artiste,
+                            )));
+              },
             ),
           ),
           Divider(
