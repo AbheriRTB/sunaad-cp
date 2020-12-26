@@ -47,82 +47,80 @@ class DefaultList extends StatelessWidget {
         fontWeight: FontWeight.bold,
         fontStyle: FontStyle.italic);
 
-    if (i == 0) {
-      return Padding(
-        padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 0.0),
-        child: Column(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8.0),
-              child: Container(
-                color: isFinished ? Colors.purple[50] : Colors.transparent,
-                child: InkWell(
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
-                    child: Row(
-                      children: [
-                        CircleAvatar(
-                          minRadius: 24,
-                          backgroundColor: Colors.orangeAccent,
-                          backgroundImage: NetworkImage('${defaultUrl}'),
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 0.0),
+      child: Column(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8.0),
+            child: Container(
+              color: isFinished ? Colors.purple[50] : Colors.transparent,
+              child: InkWell(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        minRadius: 24,
+                        backgroundColor: Colors.orangeAccent,
+                        backgroundImage: NetworkImage('${defaultUrl}'),
+                      ),
+                      Padding(
+                        padding:
+                            const EdgeInsets.fromLTRB(12.0, 0.0, 15.0, 0.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: (375.0 - 125),
+                              child: Text(
+                                progs.title,
+                                style: textStyle(18),
+                                overflow: TextOverflow.ellipsis,
+                                softWrap: true,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 2,
+                            ),
+                            SizedBox(
+                              width: (375.0 - 125),
+                              child: Text(
+                                progs.description,
+                                style: textStyle(14),
+                                softWrap: true,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 2,
+                            ),
+                            Text(
+                              ('On $formattedDate'),
+                              style: textStyle(16),
+                            ),
+                          ],
                         ),
-                        Padding(
-                          padding:
-                              const EdgeInsets.fromLTRB(12.0, 0.0, 15.0, 0.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: (375.0 - 125),
-                                child: Text(
-                                  progs.title,
-                                  style: textStyle(18),
-                                  overflow: TextOverflow.ellipsis,
-                                  softWrap: true,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 2,
-                              ),
-                              SizedBox(
-                                width: (375.0 - 125),
-                                child: Text(
-                                  progs.description,
-                                  style: textStyle(14),
-                                  softWrap: true,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 2,
-                              ),
-                              Text(
-                                ('On $formattedDate'),
-                                style: textStyle(16),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => InfoPage(
-                                  programInfo: progs,
-                                )));
-                  },
                 ),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => InfoPage(
+                                programInfo: progs,
+                              )));
+                },
               ),
             ),
-            Divider(
-              height: 4.0,
-            )
-          ],
-        ),
-      );
-    }
+          ),
+          Divider(
+            height: 4.0,
+          )
+        ],
+      ),
+    );
   }
 }
 

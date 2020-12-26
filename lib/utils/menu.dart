@@ -49,7 +49,7 @@ class MenuPopup extends StatelessWidget {
 
   _launchURL() async {
     String url =
-        'mailto:sharatchandrats@gmail.com?subject=Sunaad App feedback&body=New%20plugin';
+        'mailto:theteamabheri@gmail.com?subject=Sunaad App v1.0.0 feedback&body=';
     if (url.isNotEmpty) {
       if (await canLaunch(url)) {
         await launch(url);
