@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sunaad/models/programs.dart';
@@ -28,7 +26,7 @@ Future<List<Programs>> fetchPrograms2(http.Client client) async {
 
   // Use the compute function to run parsePhotos in a separate isolate.
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  await prefs.getString('progsData');
+  prefs.getString('progsData');
   prefs.setString('progsData', response.body);
 
   return compute(parsePhotos, response.body);
@@ -50,14 +48,6 @@ Future<List<Programs>> parsePhotosFromSPData2() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   var respBody = prefs.getString("progsData");
   List<Programs> plist, newList;
-  try {
-    final result = await InternetAddress.lookup('google.com');
-    if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-      print('connected');
-    }
-  } on SocketException catch (_) {
-    print('not connected');
-  }
   final parsed = jsonDecode(respBody).cast<Map<String, dynamic>>();
   plist = parsed.map<Programs>((json) => Programs.fromJson(json)).toList();
   newList = processExpiredItems(plist);
