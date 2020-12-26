@@ -31,7 +31,8 @@ class _DictionaryArtistePageState extends State<DictionaryArtistePage> {
       drawer: MyDrawer(
         pos: 7,
       ),
-      body: Container(
+      body: Container(child: Center(child: Text('Comming Soon'))
+          /*
         child: FutureBuilder<List<Artiste>>(
           future: JasonData().parseArtisteFromSPData(),
           builder: (context, snapshot) {
@@ -47,8 +48,8 @@ class _DictionaryArtistePageState extends State<DictionaryArtistePage> {
               );
             }
           },
-        ),
-      ),
+        ),*/
+          ),
     );
   }
 }
