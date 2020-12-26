@@ -34,9 +34,9 @@ List<Programs> parsePhotos(String responseBody) {
 
   List<Programs> plist, newList;
   plist = parsed.map<Programs>((json) => Programs.fromJson(json)).toList();
-  print("Length before:" + plist.length.toString());
+  //print("Length before:" + plist.length.toString());
   newList = processExpiredItems(plist);
-  print("Length after:" + newList.length.toString());
+  //print("Length after:" + newList.length.toString());
   return newList;
 }
 
