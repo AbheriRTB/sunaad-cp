@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sunaad/utils/drawer.dart';
 import 'package:sunaad/utils/expanded.dart';
-import 'package:sunaad/utils/list_tile.dart';
-import 'package:sunaad/models/orgs.dart';
 import 'package:sunaad/models/programs.dart';
+import 'package:sunaad/utils/menu.dart';
 
 class EventOrganizerPage extends StatefulWidget {
   @override
@@ -24,6 +23,9 @@ class _EventOrganizerPageState extends State<EventOrganizerPage> {
             fontWeight: FontWeight.w500,
           ),
         ),
+        actions: [
+          MenuPopup(),
+        ],
         centerTitle: false,
         iconTheme: IconThemeData(color: Colors.white),
       ),

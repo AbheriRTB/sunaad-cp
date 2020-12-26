@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sunaad/main.dart';
-import 'package:sunaad/pages/events/event_date.dart';
 
 class SettingsPage extends StatefulWidget {
   @override

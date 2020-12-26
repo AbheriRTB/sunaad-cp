@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sunaad/utils/drawer.dart';
 import 'package:sunaad/utils/expanded.dart';
-import 'package:sunaad/utils/list_tile.dart';
+import 'package:sunaad/utils/menu.dart';
 
 class EventVenuePage extends StatefulWidget {
   @override
@@ -20,6 +20,9 @@ class _EventVenuePageState extends State<EventVenuePage> {
             fontWeight: FontWeight.w500,
           ),
         ),
+        actions: [
+          MenuPopup(),
+        ],
         centerTitle: false,
         iconTheme: IconThemeData(color: Colors.white),
       ),

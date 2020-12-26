@@ -3,8 +3,7 @@ import 'package:sunaad/data/jason_data.dart';
 import 'package:sunaad/utils/drawer.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:sunaad/models/programs.dart';
-import 'package:http/http.dart' as http;
-import 'package:url_launcher/url_launcher.dart';
+import 'package:sunaad/utils/menu.dart';
 
 class BannerPage extends StatefulWidget {
   @override
@@ -37,6 +36,7 @@ class _BannerPageState extends State<BannerPage> {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -47,19 +47,7 @@ class _BannerPageState extends State<BannerPage> {
           ),
         ),
         actions: [
-          IconButton(
-            icon: Icon(
-              Icons.more_vert,
-              color: Colors.white,
-            ),
-            onPressed: () async {
-              var whatsappUrl = "whatsapp://send?phone=919845544209";
-              await canLaunch(whatsappUrl)
-                  ? launch(whatsappUrl)
-                  : print(
-                      "open whatsapp app link or do a snackbar with notification that there is no whatsapp installed");
-            },
-          )
+          MenuPopup(),
         ],
         centerTitle: false,
         iconTheme: IconThemeData(color: Colors.white),
@@ -90,7 +78,7 @@ class _BannerPageState extends State<BannerPage> {
                 children: [
                   carouselSlider = CarouselSlider(
                     options: CarouselOptions(
-                      height: 640.0,
+                      height: height - 142,
                       initialPage: 0,
                       enlargeCenterPage: true,
                       autoPlay: true,
@@ -117,7 +105,7 @@ class _BannerPageState extends State<BannerPage> {
                             child: Container(
                               width: MediaQuery.of(context).size.width,
                               decoration: BoxDecoration(
-                                color: Colors.deepOrange[50],
+                                color: Colors.transparent,
                               ),
                               child: Image.network(
                                 imgUrl,

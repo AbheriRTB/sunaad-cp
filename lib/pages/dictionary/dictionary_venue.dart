@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sunaad/utils/drawer.dart';
+import 'package:sunaad/utils/menu.dart';
 
 class DictionaryVenuePage extends StatefulWidget {
   @override
@@ -18,6 +19,9 @@ class _DictionaryVenuePageState extends State<DictionaryVenuePage> {
             fontWeight: FontWeight.w500,
           ),
         ),
+        actions: [
+          MenuPopup(),
+        ],
         centerTitle: false,
         iconTheme: IconThemeData(color: Colors.white),
       ),

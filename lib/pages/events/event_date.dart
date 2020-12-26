@@ -6,12 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:sunaad/data/jason_data.dart';
 import 'package:sunaad/data/data_utils.dart';
-import 'package:sunaad/pages/settings.dart';
 import 'package:sunaad/utils/drawer.dart';
 import 'package:sunaad/utils/list_tile.dart';
 import 'package:http/http.dart' as http;
 import 'package:sunaad/models/programs.dart';
 import 'package:dart_date/dart_date.dart';
+import 'package:sunaad/utils/menu.dart';
 
 class EventDatePage extends StatefulWidget {
   int indexToScroll;
@@ -93,16 +93,7 @@ class _EventDatePageState extends State<EventDatePage> {
         centerTitle: false,
         iconTheme: IconThemeData(color: Colors.white),
         actions: [
-          IconButton(
-            icon: Icon(
-              Icons.brush,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => SettingsPage()));
-            },
-          )
+          MenuPopup(),
         ],
       ),
       drawer: MyDrawer(
