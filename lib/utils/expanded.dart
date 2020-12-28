@@ -71,9 +71,7 @@ class _ExpandableListTileState extends State<ExpandableListTile> {
                   defaultUrl = imageUrl + orgs[index].artiste_image;
                 } else {
                   defaultUrl = Urls().defaultArtisteImage();
-                  ;
                 }
-
                 return Column(
                   children: [
                     ExpansionTile(

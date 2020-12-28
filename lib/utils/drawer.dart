@@ -31,7 +31,7 @@ class _MyDrawerState extends State<MyDrawer> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 0.0),
+                  padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 0.0),
                   child: Text(
                     "SUNAAD",
                     style: TextStyle(
