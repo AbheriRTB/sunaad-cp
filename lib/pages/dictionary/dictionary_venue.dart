@@ -13,7 +13,7 @@ class _DictionaryVenuePageState extends State<DictionaryVenuePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Comming Soon",
+          "Venue",
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.w500,
@@ -29,7 +29,7 @@ class _DictionaryVenuePageState extends State<DictionaryVenuePage> {
         pos: 8,
       ),
       body: Container(
-        child: Center(child: Text("Venue")),
+        child: Center(child: Text("Comming Soon")),
       ),
     );
   }

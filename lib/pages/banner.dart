@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:sunaad/data/jason_data.dart';
 import 'package:sunaad/data/urls.dart';
 import 'package:sunaad/utils/drawer.dart';
@@ -108,10 +109,20 @@ class _BannerPageState extends State<BannerPage> {
                               decoration: BoxDecoration(
                                 color: Colors.transparent,
                               ),
-                              child: Image.network(
-                                imgUrl,
-                                //fit: BoxFit.fill,
-                              ),
+                              child: Image.network(imgUrl, loadingBuilder:
+                                      (BuildContext context, Widget child,
+                                          ImageChunkEvent loadingProgress) {
+                                if (loadingProgress == null) return child;
+                                return Align(
+                                    alignment: Alignment.bottomRight,
+                                    child: SpinKitRotatingPlain(
+                                      color:
+                                          Theme.of(context).primaryColorLight,
+                                      size: 50.0,
+                                    ));
+                              }
+                                  //fit: BoxFit.fill,
+                                  ),
                             ),
                           );
                         },

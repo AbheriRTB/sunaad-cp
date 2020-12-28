@@ -14,7 +14,7 @@ class _DictionaryOrganizerPageState extends State<DictionaryOrganizerPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Comming Soon",
+          "Organizer",
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.w500,
@@ -30,7 +30,7 @@ class _DictionaryOrganizerPageState extends State<DictionaryOrganizerPage> {
         pos: 9,
       ),
       body: Container(
-        child: Center(child: Text("Organizer")),
+        child: Center(child: Text("Comming Soon")),
       ),
     );
   }
