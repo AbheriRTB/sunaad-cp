@@ -27,6 +27,7 @@ class _BannerPageState extends State<BannerPage> {
   List<Programs> progs;
   Set bannerSet = Set();
   List banners = List();
+  String organizer = 'Organizer';
 
   List map(List list, Function handler) {
     List result = [];
@@ -65,10 +66,12 @@ class _BannerPageState extends State<BannerPage> {
               loading = false;
               for (int i = 0; i < snapshot.data.length; ++i) {
                 String url = snapshot.data[i].splash_url;
+
                 url = url.replaceAll('.html', '.jpg');
                 url = url.replaceAll('flyer_', '');
                 print('Url: ' + url);
                 if (snapshot.data[i].is_featured == 'Yes') {
+                  organizer = snapshot.data[i].organizer_name;
                   bannerSet.add(imageUrl + url);
                   banners = bannerSet.toList();
                 }
@@ -113,13 +116,36 @@ class _BannerPageState extends State<BannerPage> {
                                       (BuildContext context, Widget child,
                                           ImageChunkEvent loadingProgress) {
                                 if (loadingProgress == null) return child;
-                                return Align(
-                                    alignment: Alignment.bottomRight,
-                                    child: SpinKitRotatingPlain(
+                                return Center(
+                                    child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    SpinKitRotatingPlain(
                                       color:
                                           Theme.of(context).primaryColorLight,
                                       size: 50.0,
-                                    ));
+                                    ),
+                                    SizedBox(
+                                      height: 16.0,
+                                    ),
+                                    Text(
+                                      organizer,
+                                      style: TextStyle(
+                                          color: Colors.grey[600],
+                                          fontSize: 18.0),
+                                    ),
+                                    SizedBox(
+                                      height: 8.0,
+                                    ),
+                                    Text(
+                                      'Splash Loading...',
+                                      style: TextStyle(
+                                        color: Colors.grey[600],
+                                      ),
+                                    )
+                                  ],
+                                ));
                               }
                                   //fit: BoxFit.fill,
                                   ),
