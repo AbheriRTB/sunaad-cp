@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sunaad/pages/splash.dart';
 
 void main() async {
-  runApp(MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]).then((_) {
+    runApp(MediaQuery(
+        data: MediaQueryData(),
+        child: MaterialApp(debugShowCheckedModeBanner: false, home: MyApp())));
+  });
 }
 
 class MyApp extends StatefulWidget {
