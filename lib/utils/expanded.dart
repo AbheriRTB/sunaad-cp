@@ -31,7 +31,7 @@ class _ExpandableListTileState extends State<ExpandableListTile> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder<List<Programs>>(
-          future: JasonData().parsePhotosFromSPData(),
+          future: JasonData().parseProgramsFromSPData(),
           builder: (context, snapshot) {
             List<String> artList;
             if (snapshot.hasData) prgList = snapshot.data;

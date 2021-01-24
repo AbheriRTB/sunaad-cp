@@ -100,7 +100,7 @@ class _EventDatePageState extends State<EventDatePage> {
       ),
       body: Container(
         child: FutureBuilder<List<Programs>>(
-          future: JasonData().parsePhotosFromSPData(),
+          future: JasonData().parseProgramsFromSPData(),
           builder: (context, snapshot) {
             if (snapshot.hasError) print(snapshot.error);
             return snapshot.hasData

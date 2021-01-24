@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:sunaad/utils/drawer.dart';
 import 'package:sunaad/utils/menu.dart';
 
-class DictionaryOrganizerPage extends StatefulWidget {
+class DirectoryOrganizerPage extends StatefulWidget {
   @override
-  _DictionaryOrganizerPageState createState() =>
-      _DictionaryOrganizerPageState();
+  _DirectoryOrganizerPageState createState() => _DirectoryOrganizerPageState();
 }
 
-class _DictionaryOrganizerPageState extends State<DictionaryOrganizerPage> {
+class _DirectoryOrganizerPageState extends State<DirectoryOrganizerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

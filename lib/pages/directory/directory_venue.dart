@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:sunaad/data/jason_data.dart';
-import 'package:sunaad/models/artiste.dart';
+import 'package:sunaad/models/venue.dart';
 import 'package:sunaad/utils/drawer.dart';
 import 'package:sunaad/utils/list_tile.dart';
 import 'package:sunaad/utils/menu.dart';
 
-class DictionaryArtistePage extends StatefulWidget {
+class DirectoryVenuePage extends StatefulWidget {
   @override
-  _DictionaryArtistePageState createState() => _DictionaryArtistePageState();
+  _DirectoryVenuePageState createState() => _DirectoryVenuePageState();
 }
 
-class _DictionaryArtistePageState extends State<DictionaryArtistePage> {
+class _DirectoryVenuePageState extends State<DirectoryVenuePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Artists",
+          "Venue",
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.w500,
@@ -29,27 +29,26 @@ class _DictionaryArtistePageState extends State<DictionaryArtistePage> {
         iconTheme: IconThemeData(color: Colors.white),
       ),
       drawer: MyDrawer(
-        pos: 7,
+        pos: 8,
       ),
-      body: Container(child: Center(child: Text('Comming Soon'))
-          /*
-        child: FutureBuilder<List<Artiste>>(
-          future: JasonData().parseArtisteFromSPData(),
+      body: Container(
+        child: FutureBuilder<List<Venue>>(
+          future: JasonData().parseVenueFromSPData(),
           builder: (context, snapshot) {
             if (snapshot.hasError) print(snapshot.error);
             if (snapshot.hasData) {
               return ListView.builder(
                 itemCount: snapshot.data.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return DirList(
-                    artiste: snapshot.data[index],
+                  return VenueDirList(
+                    venue: snapshot.data[index],
                   );
                 },
               );
             }
           },
-        ),*/
-          ),
+        ),
+      ),
     );
   }
 }

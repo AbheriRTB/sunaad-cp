@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sunaad/pages/dictionary/dictionary_artiste.dart';
-import 'package:sunaad/pages/dictionary/dictionary_organizer.dart';
-import 'package:sunaad/pages/dictionary/dictionary_venue.dart';
+import 'package:sunaad/pages/directory/directory_artiste.dart';
+import 'package:sunaad/pages/directory/directory_organizer.dart';
+import 'package:sunaad/pages/directory/directory_venue.dart';
 import 'package:sunaad/pages/banner.dart';
 import 'package:sunaad/pages/events/event_city.dart';
 import 'package:sunaad/pages/events/event_date.dart';
@@ -228,7 +228,7 @@ class _MyDrawerState extends State<MyDrawer> {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => DictionaryArtistePage()),
+                        builder: (context) => DirectoryArtistePage()),
                   );
                 }
               },
@@ -248,7 +248,7 @@ class _MyDrawerState extends State<MyDrawer> {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => DictionaryVenuePage()),
+                          builder: (context) => DirectoryVenuePage()),
                     );
                   }
                 }),
@@ -267,7 +267,7 @@ class _MyDrawerState extends State<MyDrawer> {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => DictionaryOrganizerPage()),
+                          builder: (context) => DirectoryOrganizerPage()),
                     );
                   }
                 }),

@@ -11,7 +11,7 @@ class Urls {
 
 // getArtiste from Heroku
   String venue() {
-    return 'https://sunaad-services-njs.herokuapp.com/getArtiste/';
+    return 'https://sunaad-services-njs.herokuapp.com/getVenue/';
   }
 
   // Images from Python anywhere

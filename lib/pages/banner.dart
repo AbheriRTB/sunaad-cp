@@ -60,23 +60,10 @@ class _BannerPageState extends State<BannerPage> {
       ),
       body: Center(
         child: FutureBuilder<List<Programs>>(
-          future: JasonData().parsePhotosFromSPData(),
+          future: JasonData().parseProgramsFromSPData(),
           builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              loading = false;
-              for (int i = 0; i < snapshot.data.length; ++i) {
-                String url = snapshot.data[i].splash_url;
-
-                url = url.replaceAll('.html', '.jpg');
-                url = url.replaceAll('flyer_', '');
-                print('Url: ' + url);
-                if (snapshot.data[i].is_featured == 'Yes') {
-                  organizer = snapshot.data[i].organizer_name;
-                  bannerSet.add(imageUrl + url);
-                  banners = bannerSet.toList();
-                }
-              }
-            }
+            bringArtiste(snapshot);
+            print('Org ' + organizer);
             return Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -162,5 +149,25 @@ class _BannerPageState extends State<BannerPage> {
         ),
       ),
     );
+  }
+
+  bringArtiste(AsyncSnapshot snapshot) {
+    if (snapshot.hasData) {
+      loading = false;
+      for (int i = 0; i < snapshot.data.length; ++i) {
+        String url = snapshot.data[i].splash_url;
+
+        url = url.replaceAll('.html', '.jpg');
+        url = url.replaceAll('flyer_', '');
+        print('Url: ' + url);
+        print(i);
+        if (snapshot.data[i].is_featured == 'Yes') {
+          organizer = snapshot.data[i].organizer_name;
+          print(organizer);
+          bannerSet.add(imageUrl + url);
+          banners = bannerSet.toList();
+        }
+      }
+    }
   }
 }
