@@ -17,6 +17,7 @@
 "venue_eateries":"No",
 "venue_is_published":"Yes"
 */
+
 class Venue {
   final int venue_id;
   final String venue_name;

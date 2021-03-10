@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sunaad/pages/info/about.dart';
+import 'package:sunaad/pages/info/donate.dart';
 import 'package:sunaad/pages/info/theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -41,7 +42,19 @@ class MenuPopup extends StatelessWidget {
               );
             },
           ),
-        ),
+        ), /*
+        PopupMenuItem(
+          child: ListTile(
+            leading: Icon(Icons.attach_money),
+            title: Text('Donate'),
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => DonatePage()),
+              );
+            },
+          ),
+        ),*/
       ],
     );
   }

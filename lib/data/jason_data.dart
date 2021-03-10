@@ -1,7 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sunaad/data/urls.dart';
+import 'package:sunaad/assets/urls.dart';
 import 'package:sunaad/models/artiste.dart';
+import 'package:sunaad/models/organizers.dart';
 import 'package:sunaad/models/programs.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -36,6 +37,14 @@ class JasonData {
 
   Future<List<Venue>> parseVenueFromSPData() async {
     return parseVenueFromSPData2();
+  }
+
+  Future<List<Organizer>> fetchOrganizerDir(http.Client client) async {
+    return fetchOrganizerDir2(client);
+  }
+
+  Future<List<Organizer>> parseOrganizerFromSPData() async {
+    return parseOrganizerFromSPData2();
   }
 }
 
@@ -114,21 +123,6 @@ List<Artiste> processPublishedArtiste(List<Artiste> plist) {
   //print("Length after:" + plist.length.toString());
 }
 
-List<Venue> processPublishedVenue(List<Venue> plist) {
-  var experyDate = DateTime(
-      DateTime.now().year, DateTime.now().month, DateTime.now().day - 3);
-
-  List<Venue> newList = List<Venue>();
-
-  for (var i = 0; i < plist.length; ++i) {
-    if (plist[i].venue_is_published != 'No') {
-      newList.add(plist[i]);
-    }
-  }
-  return newList;
-  //print("Length after:" + plist.length.toString());
-}
-
 Future<List<Artiste>> fetchArtisteDir2(http.Client client) async {
   final response = await client.get(Urls().artiste());
 
@@ -170,6 +164,21 @@ Future<List<Artiste>> parseArtisteFromSPData2() async {
   return newList;
 }
 
+List<Venue> processPublishedVenue(List<Venue> plist) {
+  var experyDate = DateTime(
+      DateTime.now().year, DateTime.now().month, DateTime.now().day - 3);
+
+  List<Venue> newList = List<Venue>();
+
+  for (var i = 0; i < plist.length; ++i) {
+    if (plist[i].venue_is_published != 'No') {
+      newList.add(plist[i]);
+    }
+  }
+  return newList;
+  //print("Length after:" + plist.length.toString());
+}
+
 Future<List<Venue>> fetchVenueDir2(http.Client client) async {
   final response = await client.get(Urls().venue());
 
@@ -208,5 +217,61 @@ Future<List<Venue>> parseVenueFromSPData2() async {
   final parsed = jsonDecode(respBody).cast<Map<String, dynamic>>();
   plist = parsed.map<Venue>((json) => Venue.fromJson(json)).toList();
   newList = processPublishedVenue(plist);
+  return newList;
+}
+
+List<Organizer> processPublishedOrganizer(List<Organizer> plist) {
+  var experyDate = DateTime(
+      DateTime.now().year, DateTime.now().month, DateTime.now().day - 3);
+
+  List<Organizer> newList = List<Organizer>();
+
+  for (var i = 0; i < plist.length; ++i) {
+    if (plist[i].organizer_is_published != 'No') {
+      newList.add(plist[i]);
+    }
+  }
+  return newList;
+  //print("Length after:" + plist.length.toString());
+}
+
+Future<List<Organizer>> fetchOrganizerDir2(http.Client client) async {
+  final response = await client.get(Urls().orgnizers());
+
+  // Use the compute function to run parsePhotos in a separate isolate.
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.getString('organizerData');
+  prefs.setString('organizerData', response.body);
+
+  return compute(parseOrganizerDir, response.body);
+}
+
+// A function that converts a response body into a List<Organizer>.
+Future<List<Organizer>> parseOrganizerDir(String responseBody) async {
+  final parsed = await jsonDecode(responseBody).cast<Map<String, dynamic>>();
+
+  List<Organizer> plist, newList;
+  plist = parsed.map<Organizer>((json) => Organizer.fromJson(json)).toList();
+  newList = processPublishedOrganizer(plist);
+  return newList;
+}
+
+List<Organizer> parseOrganizerSync2(String responseBody) {
+  final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
+
+  List<Organizer> plist, newList;
+  plist = parsed.map<Organizer>((json) => Organizer.fromJson(json)).toList();
+  newList = processPublishedOrganizer(plist);
+  return newList;
+}
+
+// A function that converts a response body into a List<Photo>.
+Future<List<Organizer>> parseOrganizerFromSPData2() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  var respBody = prefs.getString("organizerData");
+  List<Organizer> plist, newList;
+  final parsed = jsonDecode(respBody).cast<Map<String, dynamic>>();
+  plist = parsed.map<Organizer>((json) => Organizer.fromJson(json)).toList();
+  newList = processPublishedOrganizer(plist);
   return newList;
 }

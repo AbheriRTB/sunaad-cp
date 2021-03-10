@@ -16,6 +16,7 @@ class _SplashPageState extends State<SplashPage> {
       await (JasonData().fetchPrograms(http.Client()));
       await (JasonData().fetchArtisteDir(http.Client()));
       await (JasonData().fetchVenueDir(http.Client()));
+      await (JasonData().fetchOrganizerDir(http.Client()));
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => BannerPage()));
     }

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:sunaad/data/jason_data.dart';
 import 'package:sunaad/data/data_utils.dart';
-import 'package:sunaad/data/urls.dart';
+import 'package:sunaad/assets/urls.dart';
 import 'package:sunaad/utils/drawer.dart';
 import 'package:sunaad/utils/list_tile.dart';
 import 'package:http/http.dart' as http;

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
-import 'package:maps_launcher/maps_launcher.dart';
-import 'package:sunaad/data/urls.dart';
+import 'package:sunaad/assets/urls.dart';
 import 'package:sunaad/models/artiste.dart';
+import 'package:sunaad/models/organizers.dart';
 import 'package:sunaad/models/programs.dart';
 import 'package:sunaad/models/venue.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -151,13 +151,24 @@ class _ProgInfoPageState extends State<ProgInfoPage> {
             padding: const EdgeInsets.fromLTRB(54, 14, 54, 26),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(50.0),
-              child: Image.network(defaultUrl,
-                  height: 300.0, width: 300.0, fit: BoxFit.cover),
+              child: Container(
+                  color: Theme.of(context).primaryColor,
+                  child: FadeInImage.assetNetwork(
+                    image: defaultUrl,
+                    placeholder: "lib/assets/images/default.jpg",
+                    height: 300.0,
+                    width: 300.0,
+                    fit: BoxFit.cover,
+                  )),
             ),
           ),
-          Text(
-            widget.programInfo.title,
-            style: TextStyle(color: Colors.grey[600], fontSize: 18),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Text(
+              widget.programInfo.title,
+              style: TextStyle(color: Colors.grey[600], fontSize: 18),
+              textAlign: TextAlign.center,
+            ),
           ),
           SizedBox(
             height: 14,
@@ -309,8 +320,15 @@ class _ArtisteInfoPageState extends State<ArtisteInfoPage> {
             padding: const EdgeInsets.fromLTRB(54, 14, 54, 26),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(50.0),
-              child: Image.network(defaultUrl,
-                  height: 300.0, width: 300.0, fit: BoxFit.cover),
+              child: Container(
+                color: Theme.of(context).primaryColorLight,
+                child: FadeInImage.assetNetwork(
+                    image: defaultUrl,
+                    placeholder: "lib/assets/images/default.jpg",
+                    height: 300.0,
+                    width: 300.0,
+                    fit: BoxFit.cover),
+              ),
             ),
           ),
           Padding(
@@ -495,8 +513,15 @@ class _VenueInfoPageState extends State<VenueInfoPage> {
             padding: const EdgeInsets.fromLTRB(54, 14, 54, 26),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(50.0),
-              child: Image.network(defaultUrl,
-                  height: 300.0, width: 300.0, fit: BoxFit.cover),
+              child: Container(
+                color: Theme.of(context).primaryColorLight,
+                child: FadeInImage.assetNetwork(
+                    image: defaultUrl,
+                    placeholder: "lib/assets/images/default.jpg",
+                    height: 300.0,
+                    width: 300.0,
+                    fit: BoxFit.cover),
+              ),
             ),
           ),
           Padding(
@@ -615,11 +640,7 @@ class _VenueInfoPageState extends State<VenueInfoPage> {
                   borderRadius: BorderRadius.circular(16.0),
                   child: InkWell(
                     onTap: () async {
-                      if (widget.venueInfo.venue_website.isNotEmpty) {
-                        MapsLauncher.launchQuery(
-                            widget.venueInfo.venue_mapcoords);
-                        //_launchURL("https://maps.google.com/maps/search/?api=$map_api&query=${widget.venueInfo.venue_mapcoords}");
-                      }
+                      _launchMAP(widget.venueInfo.venue_mapcoords);
                     },
                     child: Container(
                       child: Padding(
@@ -653,6 +674,250 @@ class _VenueInfoPageState extends State<VenueInfoPage> {
       }
     } else {
       print('NoData');
+    }
+  }
+
+  _launchMAP(String coords) async {
+    String googleMapslocationUrl =
+        "https://www.google.com/maps/search/?api=1&query=$coords";
+
+    final String encodedURl = Uri.encodeFull(googleMapslocationUrl);
+
+    if (await canLaunch(encodedURl)) {
+      await launch(encodedURl);
+    } else {
+      print('Could not launch $encodedURl');
+      throw 'Could not launch $encodedURl';
+    }
+  }
+}
+
+// Organizer Dir Info Page
+class OrganizerInfoPage extends StatefulWidget {
+  Organizer organizerInfo;
+  OrganizerInfoPage({
+    this.organizerInfo,
+  });
+
+  @override
+  _OrganizerInfoPageState createState() => _OrganizerInfoPageState();
+}
+
+class _OrganizerInfoPageState extends State<OrganizerInfoPage> {
+  String imageUrl = Urls().image();
+
+  String defaultUrl = Urls().defaultArtisteImage();
+  @override
+  Widget build(BuildContext context) {
+    if (widget.organizerInfo.organizer_logo.isNotEmpty) {
+      defaultUrl = imageUrl + widget.organizerInfo.organizer_logo;
+    } else {
+      defaultUrl = defaultUrl = Urls().defaultArtisteImage();
+    }
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "Organizer",
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        centerTitle: false,
+        iconTheme: IconThemeData(color: Colors.white),
+      ),
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(children: [
+          SizedBox(
+            height: 14,
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(54, 14, 54, 26),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(50.0),
+              child: Container(
+                color: Theme.of(context).primaryColorLight,
+                child: FadeInImage.assetNetwork(
+                    image: defaultUrl,
+                    placeholder: "lib/assets/images/default.jpg",
+                    height: 300.0,
+                    width: 300.0,
+                    fit: BoxFit.cover),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              widget.organizerInfo.organizer_name.toUpperCase(),
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: Colors.grey[600],
+                  fontSize: 38,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
+          SizedBox(
+            height: 14,
+          ),
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+            child: Text(
+              '${widget.organizerInfo.organizer_name} is ${widget.organizerInfo.organizer_desc}.',
+              style: TextStyle(
+                color: Colors.grey[600],
+                fontSize: 18,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          SizedBox(height: 24.0),
+          Text(
+            'Connect'.toUpperCase(),
+            style:
+                TextStyle(color: Colors.grey[400], fontWeight: FontWeight.bold),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(16.0),
+                  child: InkWell(
+                    onTap: () async {
+                      if (widget.organizerInfo.organizer_email.isNotEmpty) {
+                        String url =
+                            'mailto:${widget.organizerInfo.organizer_email}?subject=&body=';
+                        _launchURL(url);
+                      }
+                    },
+                    child: Container(
+                      child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(
+                            Icons.mail,
+                            color: Colors.white,
+                          )),
+                      color: widget.organizerInfo.organizer_email.isNotEmpty
+                          ? Colors.red
+                          : Colors.grey,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 6.0,
+                ),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(16.0),
+                  child: InkWell(
+                    onTap: () async {
+                      if (widget.organizerInfo.organizer_phone.isNotEmpty) {
+                        String url =
+                            'tel:<${widget.organizerInfo.organizer_phone}>';
+                        _launchURL(url);
+                      }
+                    },
+                    child: Container(
+                      child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(
+                            Icons.call,
+                            color: Colors.white,
+                          )),
+                      color:
+                          widget.organizerInfo.organizer_phone.contains('ph_')
+                              ? Colors.grey
+                              : Colors.green,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 6.0,
+                ),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(16.0),
+                  child: InkWell(
+                    onTap: () async {
+                      if (widget.organizerInfo.organizer_website.isNotEmpty) {
+                        _launchURL(widget.organizerInfo.organizer_website);
+                      }
+                    },
+                    child: Container(
+                      child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(
+                            Icons.public,
+                            color: Colors.white,
+                          )),
+                      color: widget.organizerInfo.organizer_website.isNotEmpty
+                          ? Colors.blue
+                          : Colors.grey,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 6.0,
+                ),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(16.0),
+                  child: InkWell(
+                    onTap: () async {
+                      _launchMAP(widget.organizerInfo.organizer_mapcoords);
+                    },
+                    child: Container(
+                      child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(
+                            Icons.map,
+                            color: Colors.white,
+                          )),
+                      color: widget.organizerInfo.organizer_mapcoords.isNotEmpty
+                          ? Colors.amber
+                          : Colors.grey,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 36.0),
+        ]),
+      ),
+    );
+  }
+
+  _launchURL(String url) async {
+    print(url);
+    if (url.isNotEmpty) {
+      if (await canLaunch(url)) {
+        await launch(url);
+      } else {
+        throw 'Could not launch $url';
+      }
+    } else {
+      print('NoData');
+    }
+  }
+
+  _launchMAP(String coords) async {
+    String googleMapslocationUrl =
+        "https://www.google.com/maps/search/?api=1&query=$coords";
+
+    final String encodedURl = Uri.encodeFull(googleMapslocationUrl);
+
+    if (await canLaunch(encodedURl)) {
+      await launch(encodedURl);
+    } else {
+      print('Could not launch $encodedURl');
+      throw 'Could not launch $encodedURl';
     }
   }
 }

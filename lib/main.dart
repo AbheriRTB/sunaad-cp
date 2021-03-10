@@ -20,14 +20,14 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Color primaryColor = Color(0xFF900C3F),
-      accentColor = Color(0xFFFF5733),
-      primaryColorLight = Color(0xFFC70039);
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
         future: _getColor(),
         builder: (context, snapshot) {
+          Color primaryColor = Colors.orange,
+              accentColor = Colors.orangeAccent,
+              primaryColorLight = Colors.green;
           if (snapshot.data == 'deepPurple') {
             primaryColor = Colors.deepPurple;
             primaryColorLight = Colors.deepPurpleAccent;

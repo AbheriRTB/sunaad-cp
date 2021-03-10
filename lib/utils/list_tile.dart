@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:sunaad/data/urls.dart';
+import 'package:sunaad/assets/urls.dart';
 import 'package:sunaad/models/artiste.dart';
+import 'package:sunaad/models/organizers.dart';
 import 'package:sunaad/models/programs.dart';
 import 'package:flutter/material.dart';
 import 'package:sunaad/models/programs.dart';
@@ -9,6 +10,7 @@ import 'package:dart_date/dart_date.dart';
 import 'package:sunaad/models/venue.dart';
 import 'package:sunaad/utils/info.dart';
 
+// List template for events
 class DefaultList extends StatelessWidget {
   Programs progs;
   String imageUrl = Urls().image();
@@ -61,10 +63,14 @@ class DefaultList extends StatelessWidget {
                   padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
                   child: Row(
                     children: [
-                      CircleAvatar(
-                        minRadius: 24,
-                        backgroundColor: Colors.orangeAccent,
-                        backgroundImage: NetworkImage('${defaultUrl}'),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(25.0),
+                        child: FadeInImage.assetNetwork(
+                            image: defaultUrl,
+                            placeholder: "lib/assets/images/default.jpg",
+                            height: 48.0,
+                            width: 48.0,
+                            fit: BoxFit.cover),
                       ),
                       Padding(
                         padding:
@@ -125,6 +131,7 @@ class DefaultList extends StatelessWidget {
   }
 }
 
+// List template for Artist Dir
 class ArtisteDirList extends StatelessWidget {
   Artiste artiste;
   String imageUrl = Urls().image();
@@ -152,10 +159,14 @@ class ArtisteDirList extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
                 child: Row(
                   children: [
-                    CircleAvatar(
-                      minRadius: 24,
-                      backgroundColor: Colors.orangeAccent,
-                      backgroundImage: NetworkImage(defaultUrl),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(25.0),
+                      child: FadeInImage.assetNetwork(
+                          image: defaultUrl,
+                          placeholder: "lib/assets/images/default.jpg",
+                          height: 48.0,
+                          width: 48.0,
+                          fit: BoxFit.cover),
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(12.0, 0.0, 15.0, 0.0),
@@ -207,6 +218,7 @@ class ArtisteDirList extends StatelessWidget {
   }
 }
 
+// List template for Venue Dir
 class VenueDirList extends StatelessWidget {
   Venue venue;
   String imageUrl = Urls().image();
@@ -234,10 +246,14 @@ class VenueDirList extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
                 child: Row(
                   children: [
-                    CircleAvatar(
-                      minRadius: 24,
-                      backgroundColor: Colors.orangeAccent,
-                      backgroundImage: NetworkImage(defaultUrl),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(25.0),
+                      child: FadeInImage.assetNetwork(
+                          image: defaultUrl,
+                          placeholder: "lib/assets/images/default.jpg",
+                          height: 48.0,
+                          width: 48.0,
+                          fit: BoxFit.cover),
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(12.0, 0.0, 15.0, 0.0),
@@ -259,7 +275,7 @@ class VenueDirList extends StatelessWidget {
                           SizedBox(
                             width: (375.0 - 125),
                             child: Text(
-                              'Specilization: ${venue.venue_desc}',
+                              '${venue.venue_desc}',
                               style: textStyle(14),
                               softWrap: true,
                             ),
@@ -276,6 +292,93 @@ class VenueDirList extends StatelessWidget {
                     MaterialPageRoute(
                         builder: (context) => VenueInfoPage(
                               venueInfo: venue,
+                            )));
+              },
+            ),
+          ),
+          Divider(
+            height: 4.0,
+          )
+        ],
+      ),
+    );
+  }
+}
+
+// List template for Organizer Dir
+class OrganizerDirList extends StatelessWidget {
+  Organizer organizer;
+  String imageUrl = Urls().image();
+  String defaultUrl = Urls().defaultArtisteImage();
+  OrganizerDirList({this.organizer});
+  @override
+  Widget build(BuildContext context) {
+    if (organizer.organizer_logo.isNotEmpty) {
+      defaultUrl = imageUrl + organizer.organizer_logo;
+    } else {
+      defaultUrl = Urls().defaultArtisteImage();
+    }
+    TextStyle textStyle(double size) => TextStyle(
+        fontSize: size,
+        color: Colors.grey[600],
+        fontWeight: FontWeight.bold,
+        fontStyle: FontStyle.italic);
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 0.0),
+      child: Column(
+        children: [
+          Container(
+            child: InkWell(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(25.0),
+                      child: FadeInImage.assetNetwork(
+                          image: defaultUrl,
+                          placeholder: "lib/assets/images/default.jpg",
+                          height: 48.0,
+                          width: 48.0,
+                          fit: BoxFit.cover),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(12.0, 0.0, 15.0, 0.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: (375.0 - 125),
+                            child: Text(
+                              organizer.organizer_name,
+                              style: textStyle(18),
+                              overflow: TextOverflow.ellipsis,
+                              softWrap: true,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 2,
+                          ),
+                          SizedBox(
+                            width: (375.0 - 125),
+                            child: Text(
+                              '${organizer.organizer_desc}',
+                              style: textStyle(14),
+                              softWrap: true,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => OrganizerInfoPage(
+                              organizerInfo: organizer,
                             )));
               },
             ),
