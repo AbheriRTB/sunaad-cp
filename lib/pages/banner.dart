@@ -110,7 +110,7 @@ class _BannerPageState extends State<BannerPage> {
                                       height: 16.0,
                                     ),
                                     Text(
-                                      organizer,
+                                      "Banner Loading",
                                       style: TextStyle(
                                           color: Colors.grey[600],
                                           fontSize: 18.0),
