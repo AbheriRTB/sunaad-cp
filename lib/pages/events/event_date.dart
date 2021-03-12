@@ -83,7 +83,7 @@ class _EventDatePageState extends State<EventDatePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Concerts",
+          "Date",
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.w500,

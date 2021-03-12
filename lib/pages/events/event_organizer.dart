@@ -17,7 +17,7 @@ class _EventOrganizerPageState extends State<EventOrganizerPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Concerts",
+          "Organizer",
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.w500,

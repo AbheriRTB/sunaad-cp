@@ -14,7 +14,7 @@ class _EventCityPageState extends State<EventCityPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Concerts",
+          "City",
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.w500,

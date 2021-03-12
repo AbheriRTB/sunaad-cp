@@ -14,7 +14,7 @@ class _EventVenuePageState extends State<EventVenuePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Concerts",
+          "Venue",
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.w500,
